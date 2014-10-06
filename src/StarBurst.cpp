@@ -129,7 +129,7 @@ int htoi(char *str) /* Convert hex string to integer */
 
 void CreateArrays()
 {
-  CUSTOMVERTEX nullV = { 0.0f, 0.0f, 0.0f, 0.0f, 0x00000000, }; 
+  CUSTOMVERTEX nullV = { 0.0f, 0.0f, 0.0f, 0.0f, CRGBA(0, 0, 0, 0), }; 
 
   for (int i=0; i<m_iBars*2; i++)
   {
