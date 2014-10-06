@@ -191,7 +191,7 @@ void SetupRotation(float x, float y, float z)
 
 extern "C" void SetDefaults()
 {
-  m_iBars = 50;
+  m_iBars = 40;
   m_bLogScale=false;
   m_fPeakDecaySpeed=0.5f;
   m_fRiseSpeed=0.5f;
@@ -428,6 +428,7 @@ extern "C" void Render()
   }
 
   glDisable(GL_BLEND);
+  glDisable(GL_TEXTURE_2D);
   glBegin(GL_TRIANGLE_STRIP);
   for (size_t i=0;i<m_iBars*4;++i)
   {
