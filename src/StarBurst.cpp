@@ -11,6 +11,7 @@
 #include <math.h>
 #include "types.h"
 #include "timer.h"
+#include <ctype.h>
 
 #include <xbmc/xbmc_vis_dll.h>
 #include <GL/gl.h>
