@@ -265,7 +265,7 @@ extern "C" void Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, con
   gTimer.Init();
 }
 
-extern "C" void AudioData(float* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
+extern "C" void AudioData(const float* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
 {
   if (iFreqDataLength>FREQ_DATA_SIZE)
     iFreqDataLength = FREQ_DATA_SIZE;
