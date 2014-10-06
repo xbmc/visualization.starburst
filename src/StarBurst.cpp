@@ -242,6 +242,7 @@ bool InitGeometry()
 		{ 200.0f, 300.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) },
 		};
 
+    memcpy(g_Vertices, m_Vertices, sizeof(m_Vertices));
     return true;
 }
 
