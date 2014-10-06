@@ -434,7 +434,7 @@ extern "C" void Render()
 
   glDisable(GL_BLEND);
   glBegin(GL_TRIANGLE_STRIP);
-  for (size_t i=0;i<MAX_BARS*4;++i)
+  for (size_t i=0;i<m_iBars*4;++i)
   {
     printf("vertex at %f %f %f with color %f %f %f\n", g_Vertices[i].x, g_Vertices[i].y, g_Vertices[i].z,
            g_Vertices[i].color.r, g_Vertices[i].color.g, g_Vertices[i].color.b);
