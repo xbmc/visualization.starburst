@@ -432,7 +432,7 @@ extern "C" void Render()
   {
     printf("vertex at %f %f %f with color %f %f %f\n", g_Vertices[i].x, g_Vertices[i].y, g_Vertices[i].z,
            g_Vertices[i].color.r, g_Vertices[i].color.g, g_Vertices[i].color.b);
-    glColor3f(g_Vertices[i].color.r/255.0, g_Vertices[i].color.g/255.0, g_Vertices[i].color.b/255.0);
+    glColor3f(g_Vertices[i].color.r, g_Vertices[i].color.g, g_Vertices[i].color.b);
     glVertex3f(g_Vertices[i].x, g_Vertices[i].y, g_Vertices[i].z);
   }
   glEnd();
