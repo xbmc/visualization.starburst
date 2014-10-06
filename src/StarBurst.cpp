@@ -430,7 +430,7 @@ extern "C" void Render()
   glDisable(GL_BLEND);
   glDisable(GL_TEXTURE_2D);
   glBegin(GL_TRIANGLE_STRIP);
-  for (size_t i=0;i<m_iBars*4;++i)
+  for (size_t i=0;i<m_iBars*4-2;++i)
   {
     glColor3f(g_Vertices[i].color.r/255.0, g_Vertices[i].color.g/255.0, g_Vertices[i].color.b/255.0);
     glVertex3f(g_Vertices[i].x, g_Vertices[i].y, g_Vertices[i].z);
