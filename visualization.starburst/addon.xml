@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="visualization.fountain"
+  version="1.0.0"
+  name="Fountain"
+  provider-name="spiff">
+  <extension
+    point="xbmc.player.musicviz"
+    library_linux="visualization.fountain.so"
+    library_osx="visualization.fountain.so"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Fountain visualizer</summary>
+    <description lang="en">Fountain visualizer</description>
+    <platform>linux osx</platform>
+  </extension>
+</addon>
