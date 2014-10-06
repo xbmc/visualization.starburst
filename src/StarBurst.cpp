@@ -11,8 +11,10 @@
 #include <math.h>
 #include "types.h"
 #include "timer.h"
+#include <ctype.h>
+#include <memory.h>
 
-#include <xbmc/xbmc_viz_dll.h>
+#include <xbmc_vis_dll.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 
@@ -26,8 +28,8 @@ typedef enum _WEIGHT {
 #define sqr(x) (x*x)
 
 
-#define	FREQ_DATA_SIZE 1024			// size of frequency data wanted
-#define MAX_BARS 720				// number of bars in the Spectrum
+#define	FREQ_DATA_SIZE 512 // size of frequency data wanted
+#define MAX_BARS 256 // number of bars in the Spectrum
 #define MIN_PEAK_DECAY_SPEED 0		// decay speed in dB/frame
 #define MAX_PEAK_DECAY_SPEED 4
 #define MIN_RISE_SPEED 0.01f		// fraction of actual rise to allow
@@ -128,7 +130,7 @@ int htoi(char *str) /* Convert hex string to integer */
 
 void CreateArrays()
 {
-  CUSTOMVERTEX nullV = { 0.0f, 0.0f, 0.0f, 0.0f, 0x00000000, }; 
+  CUSTOMVERTEX nullV = { 0.0f, 0.0f, 0.0f, 0.0f, CRGBA(0, 0, 0, 0), }; 
 
   for (int i=0; i<m_iBars*2; i++)
   {
@@ -157,39 +159,9 @@ void CreateArrays()
   }
 }
 
-void SetupCamera()
-{
-  //Here we will setup the camera.
-  //The camera has three settings: "Camera Position", "Look at Position" and "Up Direction"
-  //We have set the following:
-  //Camera Position: (0, 0, -30)
-  //Look at Position: (0, 0, 0)
-  //Up direction: Y-Axis.
-
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-  gluLookAt(0.0, 0.0, -50.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-}
-
-void SetupPerspective()
-{
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  gluPerspective(45.0, 1.0, 1.0, 100.0);
-}
-
-void SetupRotation(float x, float y, float z)
-{
-  ////Here we will rotate our view around the x, y and z axis.
-  glMatrixMode(GL_MODELVIEW);
-  glRotatef(x/M_PI*180, 1.0, 0.0, 0.0);
-  glRotatef(y/M_PI*180, 0.0, 1.0, 0.0);
-  glRotatef(z/M_PI*180, 0.0, 0.0, 1.0);
-}
-
 extern "C" void SetDefaults()
 {
-  m_iBars = 50;
+  m_iBars = 40;
   m_bLogScale=false;
   m_fPeakDecaySpeed=0.5f;
   m_fRiseSpeed=0.5f;
@@ -198,13 +170,13 @@ extern "C" void SetDefaults()
   m_bMixChannels = true;
   m_fMinFreq = 80;
   m_fMaxFreq = 16000;
-  m_fMinLevel = 1;
-  m_fMaxLevel = 80;
+  m_fMinLevel = 0;
+  m_fMaxLevel = 0.2;
   m_bShowPeaks = true;
   m_bAverageLevels = false;
-  spinrate = 1.0f/30.0f;
+  spinrate = 1.0/3.0;
   startradius = 0.0f;
-  minbar = 0.0f;
+  minbar = 200.0f;
   //inital color
   r2 = 255;
   g2 = 200;
@@ -224,17 +196,17 @@ extern "C" void SetDefaults()
 
 bool InitGeometry()
 {
-    // Initialize three vertices for rendering a triangle
-    CUSTOMVERTEX g_Vertices[] =
+    // Initialize vertices for rendering a triangle
+    CUSTOMVERTEX m_Vertices[] =
     {
-        { 200.0f, 200.0f, 0.5f, 1.0f, 0xff00ff00, }, // x, y, z, rhw, color
-        { 300.0f, 200.0f, 0.5f, 1.0f, 0xff00ff00, },
-		{ 300.0f, 300.0f, 0.5f, 1.0f, 0xff00ff00, },
-		{ 200.0f, 300.0f, 0.5f, 1.0f, 0xff00ff00, },
-		{ 200.0f, 300.0f, 0.5f, 1.0f, 0xff00ff00, },
-
+        { 200.0f, 200.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) }, // x, y, z, rhw, color
+        { 300.0f, 200.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) },
+		{ 300.0f, 300.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) },
+		{ 200.0f, 300.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) },
+		{ 200.0f, 300.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) },
 		};
 
+    memcpy(g_Vertices, m_Vertices, sizeof(m_Vertices));
     return true;
 }
 
@@ -243,18 +215,12 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   if (!props)
     return ADDON_STATUS_UNKNOWN;
 
-  m_clrColor = HsvColor( 360.0f, 1.0f, .06f );
-  m_iCurrSetting = -1;
-  srand(time(NULL));
+  VIS_PROPS* visProps = (VIS_PROPS*)props;
 
-  m_ParticleSystem.ctor();
-  SetDefaults();
-  m_ParticleSystem.Init();
-
-  m_width = iScreenWidth;
-  m_height = iScreenHeight;
-  m_centerx = m_width/2.0f + iPosX;
-  m_centery = m_height/2.0f + iPosY;
+  m_width = visProps->width;
+  m_height = visProps->height;
+  m_centerx = m_width/2.0f + visProps->x;
+  m_centery = m_height/2.0f + visProps->y;
   SetDefaults();
   CreateArrays();
 
@@ -270,7 +236,7 @@ extern "C" void Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, con
   gTimer.Init();
 }
 
-extern "C" void AudioData(float* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
+extern "C" void AudioData(const float* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
 {
   if (iFreqDataLength>FREQ_DATA_SIZE)
     iFreqDataLength = FREQ_DATA_SIZE;
@@ -341,15 +307,6 @@ extern "C" void AudioData(float* pAudioData, int iAudioDataLength, float *pFreqD
     }
     jmin = jmax;
   }
-  // Transform data to dB scale, 0 (Quietest possible) to 96 (Loudest)
-  for (int i=0; i < m_iBars*2; i++)
-  {
-    m_pFreq[i] = 10*log10(m_pFreq[i]);
-    if (m_pFreq[i] > MAX_LEVEL)
-      m_pFreq[i] = MAX_LEVEL;
-    if (m_pFreq[i] < MIN_LEVEL)
-      m_pFreq[i] = MIN_LEVEL;
-  }
 }
 
 extern "C" void Render()
@@ -362,7 +319,7 @@ extern "C" void Render()
   float devisions = (2.0f*PI)/(m_iBars);
   float dwidth = devisions/2.3f;
 
-  angle += (2.0f*PI)/(spinrate*1000)*(timepassed/250000.0);
+  angle += (2.0f*PI)/(spinrate)*(timepassed/25.0);
 
   for (int i=0; i < m_iBars*2; i++)
   {
@@ -431,17 +388,63 @@ extern "C" void Render()
     angle += devisions;
   }
 
+  glDisable(GL_BLEND);
+  glDisable(GL_TEXTURE_2D);
   glBegin(GL_TRIANGLE_STRIP);
-  for (size_t i=0;i<MAX_BARS*4;++i)
+  glShadeModel(GL_SMOOTH);
+  for (size_t i=0;i<m_iBars*4-2;++i)
   {
-    glColor3f(g_Vertices[i].color.r, g_Vertices[i].color.g, g_Vertices[i].color.b);
+    glColor3f(g_Vertices[i].color.r/255.0, g_Vertices[i].color.g/255.0, g_Vertices[i].color.b/255.0);
     glVertex3f(g_Vertices[i].x, g_Vertices[i].y, g_Vertices[i].z);
   }
   glEnd();
+  glEnable(GL_BLEND);
+  glEnable(GL_TEXTURE_2D);
 }
 
 extern "C" void ADDON_Stop()
 {
+}
+
+//-- GetSubModules ------------------------------------------------------------
+// Return any sub modules supported by this vis
+//-----------------------------------------------------------------------------
+extern "C" unsigned int GetSubModules(char ***names)
+{
+  return 0; // this vis supports 0 sub modules
+}
+
+//-- OnAction -----------------------------------------------------------------
+// Handle XBMC actions such as next preset, lock preset, album art changed etc
+//-----------------------------------------------------------------------------
+extern "C" bool OnAction(long flags, const void *param)
+{
+  bool ret = false;
+  return ret;
+}
+
+//-- GetPresets ---------------------------------------------------------------
+// Return a list of presets to XBMC for display
+//-----------------------------------------------------------------------------
+extern "C" unsigned int GetPresets(char ***presets)
+{
+  return 0;
+}
+
+//-- GetPreset ----------------------------------------------------------------
+// Return the index of the current playing preset
+//-----------------------------------------------------------------------------
+extern "C" unsigned GetPreset()
+{
+  return 0;
+}
+
+//-- IsLocked -----------------------------------------------------------------
+// Returns true if this add-on use settings
+//-----------------------------------------------------------------------------
+extern "C" bool IsLocked()
+{
+  return false;
 }
 
 //-- GetInfo ------------------------------------------------------------------
