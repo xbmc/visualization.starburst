@@ -244,14 +244,6 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   if (!props)
     return ADDON_STATUS_UNKNOWN;
 
-  m_clrColor = HsvColor( 360.0f, 1.0f, .06f );
-  m_iCurrSetting = -1;
-  srand(time(NULL));
-
-  m_ParticleSystem.ctor();
-  SetDefaults();
-  m_ParticleSystem.Init();
-
   m_width = iScreenWidth;
   m_height = iScreenHeight;
   m_centerx = m_width/2.0f + iPosX;
