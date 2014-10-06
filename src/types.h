@@ -12,6 +12,7 @@
 
 #include <math.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 /***************************** D E F I N E S *******************************/
 
