@@ -107,14 +107,7 @@ struct CUSTOMVERTEX
 };
 
 
-CUSTOMVERTEX g_Vertices[MAX_BARS*4] = 
-    {
-        { 200.0f, 200.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) }, // x, y, z, rhw, color
-        { 300.0f, 200.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) },
-		{ 300.0f, 300.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) },
-		{ 200.0f, 300.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) },
-		{ 200.0f, 300.0f, 0.5f, 1.0f, CRGBA(0, 255, 0, 255) },
-		};
+CUSTOMVERTEX g_Vertices[MAX_BARS*4];
 CTimer gTimer;
 
 int inline sign(float a) {return (a>0) ? 1 : -1;}
