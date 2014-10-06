@@ -12,7 +12,7 @@
 #include "types.h"
 #include "timer.h"
 
-#include <xbmc/xbmc_viz_dll.h>
+#include <xbmc/xbmc_vis_dll.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 
