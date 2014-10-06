@@ -439,6 +439,47 @@ extern "C" void ADDON_Stop()
 {
 }
 
+//-- GetSubModules ------------------------------------------------------------
+// Return any sub modules supported by this vis
+//-----------------------------------------------------------------------------
+extern "C" unsigned int GetSubModules(char ***names)
+{
+  return 0; // this vis supports 0 sub modules
+}
+
+//-- OnAction -----------------------------------------------------------------
+// Handle XBMC actions such as next preset, lock preset, album art changed etc
+//-----------------------------------------------------------------------------
+extern "C" bool OnAction(long flags, const void *param)
+{
+  bool ret = false;
+  return ret;
+}
+
+//-- GetPresets ---------------------------------------------------------------
+// Return a list of presets to XBMC for display
+//-----------------------------------------------------------------------------
+extern "C" unsigned int GetPresets(char ***presets)
+{
+  return 0;
+}
+
+//-- GetPreset ----------------------------------------------------------------
+// Return the index of the current playing preset
+//-----------------------------------------------------------------------------
+extern "C" unsigned GetPreset()
+{
+  return 0;
+}
+
+//-- IsLocked -----------------------------------------------------------------
+// Returns true if this add-on use settings
+//-----------------------------------------------------------------------------
+extern "C" bool IsLocked()
+{
+  return false;
+}
+
 //-- GetInfo ------------------------------------------------------------------
 // Tell XBMC our requirements
 //-----------------------------------------------------------------------------
