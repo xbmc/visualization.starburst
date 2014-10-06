@@ -244,10 +244,12 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   if (!props)
     return ADDON_STATUS_UNKNOWN;
 
-  m_width = iScreenWidth;
-  m_height = iScreenHeight;
-  m_centerx = m_width/2.0f + iPosX;
-  m_centery = m_height/2.0f + iPosY;
+  VIS_PROPS* visProps = (VIS_PROPS*)props;
+
+  m_width = visProps->width;
+  m_height = visProps->height;
+  m_centerx = m_width/2.0f + visProps->x;
+  m_centery = m_height/2.0f + visProps->y;
   SetDefaults();
   CreateArrays();
 
