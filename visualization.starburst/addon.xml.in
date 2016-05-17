@@ -6,11 +6,10 @@
   provider-name="spiff">
   <extension
     point="xbmc.player.musicviz"
-    library_linux="visualization.starburst.so"
-    library_osx="visualization.starburst.so"/>
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">StarBurst visualizer</summary>
     <description lang="en">StarBurst visualizer</description>
-    <platform>linux osx</platform>
+    <platform>@PLATFORM@</platform>
   </extension>
 </addon>
