@@ -13,6 +13,9 @@ include_directories(${OpenGL_INCLUDE_DIR}
 
 set(STARBURST_SOURCES src/StarBurst.cpp)
 
+set(STARBURST_HEADERS src/timer.h
+                      src/types.h)
+
 SET(DEPLIBS ${OPENGL_LIBRARIES})
 
 build_addon(visualization.starburst STARBURST DEPLIBS)
