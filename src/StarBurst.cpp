@@ -215,7 +215,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   if (!props)
     return ADDON_STATUS_UNKNOWN;
 
-  VIS_PROPS* visProps = (VIS_PROPS*)props;
+  AddonProps_Visualization* visProps = (AddonProps_Visualization*)props;
 
   m_width = visProps->width;
   m_height = visProps->height;
@@ -402,7 +402,7 @@ extern "C" void Render()
   glEnable(GL_TEXTURE_2D);
 }
 
-extern "C" void ADDON_Stop()
+extern "C" void Stop()
 {
 }
 
