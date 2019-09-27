@@ -10,7 +10,7 @@
     library_@PLATFORM@="@LIBRARY_FILENAME@"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">StarBurst visualizer</summary>
-    <description lang="en">StarBurst visualizer</description>
+    <description lang="en">Frequency giving stars burst.</description>
     <platform>@PLATFORM@</platform>
   </extension>
 </addon>
