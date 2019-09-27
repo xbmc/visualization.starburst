@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="visualization.starburst"
-  version="1.1.0"
+  version="2.0.0"
   name="StarBurst"
-  provider-name="spiff">
+  provider-name="Team Kodi">
   <requires>@ADDON_DEPENDS@</requires>
   <extension
     point="xbmc.player.musicviz"
     library_@PLATFORM@="@LIBRARY_FILENAME@"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">StarBurst visualizer</summary>
-    <description lang="en">StarBurst visualizer</description>
+    <description lang="en">Frequency giving stars burst.</description>
     <platform>@PLATFORM@</platform>
+    <license>GPL-2.0</license>
+    <source>https://github.com/xbmc/visualization.starburst</source>
+    <assets>
+      <icon>resources/icon.png</icon>
+      <fanart>resources/fanart.jpg</fanart>
+      <screenshot>resources/screenshot-01.jpg</screenshot>
+      <screenshot>resources/fanart.jpg</screenshot>
+      <screenshot>resources/screenshot-02.jpg</screenshot>
+    </assets>
   </extension>
 </addon>

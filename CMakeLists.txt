@@ -1,22 +1,30 @@
+cmake_minimum_required(VERSION 3.5)
 project(visualization.starburst)
-
-cmake_minimum_required(VERSION 2.6)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 find_package(Kodi REQUIRED)
-find_package(OpenGL REQUIRED)
+find_package(glm REQUIRED)
 
-add_definitions(-DHAS_SDL_OPENGL)
-include_directories(${OpenGL_INCLUDE_DIR}
-                    ${KODI_INCLUDE_DIR})
+if(APP_RENDER_SYSTEM STREQUAL "gl" OR NOT APP_RENDER_SYSTEM)
+  find_package(OpenGl REQUIRED)
+  set(DEPLIBS ${OPENGL_LIBRARIES})
+  set(includes ${OPENGL_INCLUDE_DIR})
+  add_definitions(${OPENGL_DEFINITIONS})
+else()
+  find_package(OpenGLES REQUIRED)
+  set(DEPLIBS ${OPENGLES_LIBRARIES})
+  set(includes ${OPENGLES_INCLUDE_DIR})
+  add_definitions(${OPENGLES_DEFINITIONS})
+endif()
+
+include_directories(${GLM_INCLUDE_DIR}
+                    ${KODI_INCLUDE_DIR}/.. # Hack way with "/..", need bigger Kodi cmake rework to match right include ways
+                    ${PROJECT_SOURCE_DIR}/lib)
 
 set(STARBURST_SOURCES src/StarBurst.cpp)
 
-set(STARBURST_HEADERS src/timer.h
-                      src/types.h)
-
-SET(DEPLIBS ${OPENGL_LIBRARIES})
+set(STARBURST_HEADERS src/StarBurst.h)
 
 build_addon(visualization.starburst STARBURST DEPLIBS)
 
