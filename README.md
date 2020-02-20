@@ -3,7 +3,8 @@
 This is a [Kodi](http://kodi.tv) visualization addon.
 
 [![Build Status](https://travis-ci.org/xbmc/visualization.starburst.svg?branch=Matrix)](https://travis-ci.org/xbmc/visualization.starburst/branches)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/xbmc/visualization.starburst?branch=Matrix&svg=true)](https://ci.appveyor.com/project/xbmc/visualization-starburst?branch=Matrix)
+[![Build Status](https://dev.azure.com/teamkodi/binary-addons/_apis/build/status/xbmc.visualization.starburst?branchName=Matrix)](https://dev.azure.com/teamkodi/binary-addons/_build/latest?definitionId=32&branchName=Matrix)
+<!--- [![Build Status](https://ci.appveyor.com/api/projects/status/github/xbmc/visualization.starburst?branch=Matrix&svg=true)](https://ci.appveyor.com/project/xbmc/visualization-starburst?branch=Matrix) -->
 
 ![screenshot](https://raw.githubusercontent.com/xbmc/visualization.starburst/Matrix/visualization.starburst/resources/screenshot-01.jpg)
 
