@@ -2,6 +2,7 @@
 
 This is a [Kodi](http://kodi.tv) visualization addon.
 
+[![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/xbmc/visualization.starburst.svg?branch=Matrix)](https://travis-ci.org/xbmc/visualization.starburst/branches)
 [![Build Status](https://dev.azure.com/teamkodi/binary-addons/_apis/build/status/xbmc.visualization.starburst?branchName=Matrix)](https://dev.azure.com/teamkodi/binary-addons/_build/latest?definitionId=32&branchName=Matrix)
 <!--- [![Build Status](https://ci.appveyor.com/api/projects/status/github/xbmc/visualization.starburst?branch=Matrix&svg=true)](https://ci.appveyor.com/project/xbmc/visualization-starburst?branch=Matrix) -->
