@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="visualization.starburst"
-  version="20.0.0"
+  version="20.1.0"
   name="StarBurst"
   provider-name="Team Kodi">
   <requires>@ADDON_DEPENDS@</requires>
@@ -19,7 +19,15 @@
       <screenshot>resources/fanart.jpg</screenshot>
       <screenshot>resources/screenshot-02.jpg</screenshot>
     </assets>
+    <summary lang="da_DK">StarBurst visualisering</summary>
+    <summary lang="de_DE">StarBurst-Visualisierung</summary>
     <summary lang="en_GB">StarBurst visualizer</summary>
+    <summary lang="ko_KR">StarBurst 시각화</summary>
+    <summary lang="zh_CN">星暴可视化效果</summary>
+    <description lang="da_DK">Frekvens der får stjerner til at briste.</description>
+    <description lang="de_DE">Starburst-Frequenz.</description>
     <description lang="en_GB">Frequency giving stars burst.</description>
+    <description lang="ko_KR">주파수가 별 터뜨림.</description>
+    <description lang="zh_CN">恒星爆发的频率。</description>
   </extension>
 </addon>

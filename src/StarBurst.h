@@ -47,7 +47,7 @@ typedef enum _WEIGHT {
 #define POLE4 737.86223*737.86223  // for A weighting
 #define POLE5 158.5*158.5 // for B weighting
 
-class ATTRIBUTE_HIDDEN CVisualizationStarBurst
+class ATTR_DLL_LOCAL CVisualizationStarBurst
   : public kodi::addon::CAddonBase,
     public kodi::addon::CInstanceVisualization,
     public kodi::gui::gl::CShaderProgram
