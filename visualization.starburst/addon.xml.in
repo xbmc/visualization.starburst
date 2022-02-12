@@ -22,12 +22,14 @@
     <summary lang="da_DK">StarBurst visualisering</summary>
     <summary lang="de_DE">StarBurst-Visualisierung</summary>
     <summary lang="en_GB">StarBurst visualizer</summary>
+    <summary lang="hr_HR">StarBurst predočitelj</summary>
     <summary lang="ko_KR">StarBurst 시각화</summary>
     <summary lang="pl_PL">Wizualizator StarBurst</summary>
     <summary lang="zh_CN">星暴可视化效果</summary>
     <description lang="da_DK">Frekvens der får stjerner til at briste.</description>
     <description lang="de_DE">Starburst-Frequenz.</description>
     <description lang="en_GB">Frequency giving stars burst.</description>
+    <description lang="hr_HR">Frekvencija prsnuća zvijezda.</description>
     <description lang="ko_KR">주파수가 별 터뜨림.</description>
     <description lang="pl_PL">Częstotliwości rozbłyskują gwiazdy.</description>
     <description lang="zh_CN">恒星爆发的频率。</description>
