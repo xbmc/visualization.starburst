@@ -23,6 +23,7 @@
     <summary lang="de_DE">StarBurst-Visualisierung</summary>
     <summary lang="en_GB">StarBurst visualizer</summary>
     <summary lang="es_ES">Visualizador StarBurst</summary>
+    <summary lang="fi_FI">StarBurst-visualisointi</summary>
     <summary lang="fr_FR">Visualiseur StarBurst</summary>
     <summary lang="hr_HR">StarBurst predočitelj</summary>
     <summary lang="ko_KR">StarBurst 시각화</summary>
@@ -34,6 +35,7 @@
     <description lang="de_DE">Starburst-Frequenz.</description>
     <description lang="en_GB">Frequency giving stars burst.</description>
     <description lang="es_ES">Frecuencia de estallido de estrellas.</description>
+    <description lang="fi_FI">Äänen tahtiin räjähtelevät tähdet.</description>
     <description lang="fr_FR">Fréquence d&apos;éclatements d&apos;étoiles.</description>
     <description lang="hr_HR">Frekvencija prsnuća zvijezda.</description>
     <description lang="ko_KR">주파수가 별 터뜨림.</description>
