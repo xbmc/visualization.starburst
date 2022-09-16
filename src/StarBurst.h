@@ -15,6 +15,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+class MRFFT;
+
 typedef enum _WEIGHT {
   WEIGHT_NONE = 0,
   WEIGHT_A    = 1,
@@ -56,11 +58,11 @@ public:
   CVisualizationStarBurst();
   ~CVisualizationStarBurst() override = default;
 
-  bool Start(int channels, int samplesPerSec, int bitsPerSample, std::string songName) override;
+  bool Start(int channels, int samplesPerSec, int bitsPerSample, const std::string& songName) override;
   void Stop() override;
   void Render() override;
-  void AudioData(const float* audioData, int audioDataLength, float* freqData, int freqDataLength) override;
-  void GetInfo(bool& wantsFreq, int& syncDelay) override { wantsFreq = true; syncDelay = 16; }
+  void AudioData(const float* audioData, size_t audioDataLength) override;
+  int GetSyncDelay() override { return 16; }
 
   void OnCompiledAndLinked() override;
   bool OnEnabled() override;
@@ -70,7 +72,10 @@ private:
   void CreateArrays();
   void SetDefaults();
 
-  float m_fWaveform[2][512];
+  std::unique_ptr<MRFFT> m_transform;
+  std::unique_ptr<float[]> m_freqData;
+  size_t m_freqDataLength = 0;
+  size_t m_prevFreqDataLength = 0;
 
   glm::mat4 m_modelProjMat;
 

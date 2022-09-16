@@ -18,13 +18,21 @@ else()
   add_definitions(${OPENGLES_DEFINITIONS})
 endif()
 
+# Add kissfft
+add_subdirectory(${PROJECT_SOURCE_DIR}/lib/kissfft)
+
 include_directories(${includes}
                     ${GLM_INCLUDE_DIR}
+                    ${PROJECT_SOURCE_DIR}/lib/kissfft
                     ${KODI_INCLUDE_DIR}/..) # Hack way with "/..", need bigger Kodi cmake rework to match right include ways
 
-set(STARBURST_SOURCES src/StarBurst.cpp)
+list(APPEND DEPLIBS kissfft)
 
-set(STARBURST_HEADERS src/StarBurst.h)
+set(STARBURST_SOURCES src/StarBurst.cpp
+                      src/mrfft.cpp)
+
+set(STARBURST_HEADERS src/StarBurst.h
+                      src/mrfft.h)
 
 build_addon(visualization.starburst STARBURST DEPLIBS)
 

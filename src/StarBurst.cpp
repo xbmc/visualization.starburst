@@ -8,6 +8,8 @@
 
 #include "StarBurst.h"
 
+#include "mrfft.h"
+
 CVisualizationStarBurst::CVisualizationStarBurst()
 {
   m_width = Width();
@@ -18,7 +20,7 @@ CVisualizationStarBurst::CVisualizationStarBurst()
   CreateArrays();
 }
 
-bool CVisualizationStarBurst::Start(int channels, int samplesPerSec, int bitsPerSample, std::string songName)
+bool CVisualizationStarBurst::Start(int channels, int samplesPerSec, int bitsPerSample, const std::string& songName)
 {
   (void)channels;
   (void)bitsPerSample;
@@ -182,8 +184,30 @@ void CVisualizationStarBurst::Render()
   glDisableVertexAttribArray(m_aColor);
 }
 
-void CVisualizationStarBurst::AudioData(const float* pAudioData, int iAudioDataLength, float* pFreqData, int iFreqDataLength)
+void CVisualizationStarBurst::AudioData(const float* pAudioData, size_t iAudioDataLength)
 {
+  size_t iFreqDataLength = iAudioDataLength / 2;
+  iFreqDataLength -= iFreqDataLength % 2;
+
+  // This part is essentially the same as what Kodi would do if we'd set "pInfo->bWantsFreq = true" (in the GetInfo methode)
+  // However, even though Kodi can do windowing (Hann window) they set the flag for it to "false" (hardcoded).
+  // So I just copied the "rfft.h" and "rfft.cpp", renamed the classe to "MRFFT" (otherwise we'd use the original) and set
+  // the flag to "true".
+  // Further this gives us the ability to change the response if needed (They return the magnitude per default I believe)
+  if (m_prevFreqDataLength != iFreqDataLength || !m_transform)
+  {
+    if (iFreqDataLength > m_freqDataLength || !m_freqData)
+    {
+      m_freqData.reset(new float[iFreqDataLength]);
+      m_freqDataLength = iFreqDataLength;
+    }
+
+    m_transform.reset(new MRFFT(iFreqDataLength, true));
+    m_prevFreqDataLength = iFreqDataLength;
+  }
+
+  m_transform->calc(pAudioData, m_freqData);
+
   if (iFreqDataLength>FREQ_DATA_SIZE)
     iFreqDataLength = FREQ_DATA_SIZE;
   // weight the data using A,B or C-weighting
@@ -191,8 +215,8 @@ void CVisualizationStarBurst::AudioData(const float* pAudioData, int iAudioDataL
   {
     for (int i=0; i<iFreqDataLength+2; i+=2)
     {
-      pFreqData[i] *= m_pWeight[i>>1];
-      pFreqData[i+1] *= m_pWeight[i>>1];
+      m_freqData[i] *= m_pWeight[i>>1];
+      m_freqData[i+1] *= m_pWeight[i>>1];
     }
   }
   // Group data into frequency bins by averaging (Ignore the constant term)
@@ -216,28 +240,28 @@ void CVisualizationStarBurst::AudioData(const float* pAudioData, int iAudioDataL
       if (m_bMixChannels)
       {
         if (m_bAverageLevels)
-          m_pFreq[iBin]+=pFreqData[j]+pFreqData[j+1];
+          m_pFreq[iBin]+=m_freqData[j]+m_freqData[j+1];
         else
         {
-          if (pFreqData[j]>m_pFreq[iBin])
-            m_pFreq[iBin]=pFreqData[j];
-          if (pFreqData[j+1]>m_pFreq[iBin])
-            m_pFreq[iBin]=pFreqData[j+1];
+          if (m_freqData[j]>m_pFreq[iBin])
+            m_pFreq[iBin]=m_freqData[j];
+          if (m_freqData[j+1]>m_pFreq[iBin])
+            m_pFreq[iBin]=m_freqData[j+1];
         }
       }
       else
       {
         if (m_bAverageLevels)
         {
-          m_pFreq[iBin]+=pFreqData[j];
-          m_pFreq[iBin+1]+=pFreqData[j+1];
+          m_pFreq[iBin]+=m_freqData[j];
+          m_pFreq[iBin+1]+=m_freqData[j+1];
         }
         else
         {
-          if (pFreqData[j]>m_pFreq[iBin])
-            m_pFreq[iBin]=pFreqData[j];
-          if (pFreqData[j+1]>m_pFreq[iBin+1])
-            m_pFreq[iBin+1]=pFreqData[j+1];
+          if (m_freqData[j]>m_pFreq[iBin])
+            m_pFreq[iBin]=m_freqData[j];
+          if (m_freqData[j+1]>m_pFreq[iBin+1])
+            m_pFreq[iBin+1]=m_freqData[j+1];
         }
       }
     }
