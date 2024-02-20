@@ -39,6 +39,8 @@ bool CVisualizationStarBurst::Start(int channels, int samplesPerSec, int bitsPer
 
   InitGeometry();
 
+  glGenVertexArrays(1, &m_vao);
+
 #ifdef HAS_GL
   glGenBuffers(2, m_vertexVBO);
 #endif
@@ -58,11 +60,12 @@ void CVisualizationStarBurst::Stop()
   m_startOK = false;
 
 #ifdef HAS_GL
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
   glDeleteBuffers(2, m_vertexVBO);
   m_vertexVBO[0] = 0;
   m_vertexVBO[1]= 0;
 #endif
+
+  glDeleteVertexArrays(1, &m_vao);
 }
 
 void CVisualizationStarBurst::Render()
@@ -154,6 +157,8 @@ void CVisualizationStarBurst::Render()
     m_angle += devisions;
   }
 
+  glBindVertexArray(m_vao);
+
 #ifdef HAS_GL
   glBindBuffer(GL_ARRAY_BUFFER, m_vertexVBO[0]);
   glVertexAttribPointer(m_aPosition, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), BUFFER_OFFSET(offsetof(glm::vec4, x)));
@@ -182,6 +187,8 @@ void CVisualizationStarBurst::Render()
 
   glDisableVertexAttribArray(m_aPosition);
   glDisableVertexAttribArray(m_aColor);
+
+  glBindVertexArray(0);
 }
 
 void CVisualizationStarBurst::AudioData(const float* pAudioData, size_t iAudioDataLength)
