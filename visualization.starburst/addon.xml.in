@@ -19,19 +19,22 @@
       <screenshot>resources/fanart.jpg</screenshot>
       <screenshot>resources/screenshot-02.jpg</screenshot>
     </assets>
+    <summary lang="af_ZA">StarBurst visualisering</summary>
     <summary lang="da_DK">StarBurst visualisering</summary>
     <summary lang="de_DE">StarBurst-Visualisierung</summary>
     <summary lang="en_GB">StarBurst visualizer</summary>
+    <summary lang="eo">Muzik-bildigilo StarBust</summary>
     <summary lang="es_ES">Visualizador StarBurst</summary>
     <summary lang="fi_FI">StarBurst-visualisointi</summary>
     <summary lang="fr_FR">Visualiseur StarBurst</summary>
     <summary lang="hr_HR">StarBurst predočitelj</summary>
-    <summary lang="it_IT">Visualizzatore esplosione di stelle</summary>
+    <summary lang="it_IT">Visualizzatore StarBurst</summary>
     <summary lang="ko_KR">StarBurst 시각화</summary>
     <summary lang="pl_PL">Wizualizator StarBurst</summary>
     <summary lang="ru_RU">Визуализация StarBurst</summary>
     <summary lang="uk_UA">Візуалізація StarBurst</summary>
     <summary lang="zh_CN">星暴可视化效果</summary>
+    <description lang="af_ZA">Frekwensie gee sterre bars.</description>
     <description lang="da_DK">Frekvens der får stjerner til at briste.</description>
     <description lang="de_DE">Starburst-Frequenz.</description>
     <description lang="en_GB">Frequency giving stars burst.</description>
