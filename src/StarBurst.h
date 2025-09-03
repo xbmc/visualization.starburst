@@ -79,6 +79,8 @@ private:
 
   glm::mat4 m_modelProjMat;
 
+  GLuint m_vao = 0;
+
 #ifdef HAS_GL
   GLuint m_vertexVBO[2] = { 0 };
 #endif
