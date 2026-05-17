@@ -74,14 +74,14 @@ void CVisualizationStarBurst::Render()
   if (!m_startOK)
     return;
 
-  double currentTime =
+  const double currentTime =
       std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
-  double timepassed = currentTime - m_oldTime;
+  const double timepassed = currentTime - m_oldTime;
   m_oldTime = currentTime;
 
-  float PI = 3.141592653589793f;
-  float devisions = (2.0f * PI) / (m_iBars);
-  float dwidth = devisions / 2.3f;
+  const float PI = 3.141592653589793f;
+  const float devisions = (2.0f * PI) / (m_iBars);
+  const float dwidth = devisions / 2.3f;
 
   m_angle += (2.0f * PI) / (spinrate) * (timepassed / 25.0);
 
