@@ -18,15 +18,8 @@ CVisualizationStarBurst::CVisualizationStarBurst()
   m_centery = m_height / 2.0f + Y();
 }
 
-bool CVisualizationStarBurst::Start(int channels,
-                                    int samplesPerSec,
-                                    int bitsPerSample,
-                                    const std::string& songName)
+bool CVisualizationStarBurst::Init()
 {
-  (void)channels;
-  (void)bitsPerSample;
-  (void)songName;
-
   std::string fraqShader =
       kodi::addon::GetAddonPath("resources/shaders/" GL_TYPE_STRING "/frag.glsl");
   std::string vertShader =
@@ -36,9 +29,6 @@ bool CVisualizationStarBurst::Start(int channels,
     kodi::Log(ADDON_LOG_ERROR, "Failed to create or compile shader");
     return false;
   }
-
-  m_iSampleRate = samplesPerSec;
-  CreateArrays();
 
   InitGeometry();
 
@@ -54,7 +44,7 @@ bool CVisualizationStarBurst::Start(int channels,
   return true;
 }
 
-void CVisualizationStarBurst::Stop()
+void CVisualizationStarBurst::DeInit()
 {
   if (!m_startOK)
     return;
@@ -67,6 +57,17 @@ void CVisualizationStarBurst::Stop()
   m_vertexVBO[0] = 0;
   m_vertexVBO[1] = 0;
 #endif
+}
+
+bool CVisualizationStarBurst::AudioStart(int channels, int samplesPerSec, int bitsPerSample)
+{
+  (void)channels;
+  (void)bitsPerSample;
+
+  m_iSampleRate = samplesPerSec;
+  CreateAudioArrays();
+
+  return true;
 }
 
 void CVisualizationStarBurst::Render()
@@ -306,6 +307,18 @@ bool CVisualizationStarBurst::OnEnabled()
 
 bool CVisualizationStarBurst::InitGeometry()
 {
+  for (int i = 0; i < m_iBars * 2; i++)
+  {
+    m_pScreen[i] = 0.0f;
+    m_pPeak[i] = 0.0f;
+    m_pFreq[i] = 0.0f;
+
+    m_positions[i * 2] = glm::vec4(0.0f);
+    m_positions[i * 2 + 1] = glm::vec4(0.0f);
+    m_colors[i * 2] = glm::vec4(0.0f);
+    m_colors[i * 2 + 1] = glm::vec4(0.0f);
+  }
+
   // Initialize vertices for rendering a triangle
 
   glm::vec4 positions[] = {
@@ -327,7 +340,7 @@ bool CVisualizationStarBurst::InitGeometry()
   return true;
 }
 
-void CVisualizationStarBurst::CreateArrays()
+void CVisualizationStarBurst::CreateAudioArrays()
 {
   // and the weight array
   if (m_Weight == WEIGHT_NONE)

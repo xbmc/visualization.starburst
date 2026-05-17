@@ -57,21 +57,21 @@ public:
   CVisualizationStarBurst();
   ~CVisualizationStarBurst() override = default;
 
-  bool Start(int channels,
-             int samplesPerSec,
-             int bitsPerSample,
-             const std::string& songName) override;
-  void Stop() override;
+  bool Init() override;
+  void DeInit() override;
+
   void Render() override;
+
+  bool AudioStart(int channels, int samplesPerSec, int bitsPerSample) override;
   void AudioData(const float* audioData, size_t audioDataLength) override;
-  int GetSyncDelay() override { return 16; }
+  int AudioGetSyncDelay() override { return 16; }
 
   void OnCompiledAndLinked() override;
   bool OnEnabled() override;
 
 private:
   bool InitGeometry();
-  void CreateArrays();
+  void CreateAudioArrays();
 
   std::unique_ptr<MRFFT> m_transform;
   std::unique_ptr<float[]> m_freqData;
