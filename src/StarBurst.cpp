@@ -16,7 +16,6 @@ CVisualizationStarBurst::CVisualizationStarBurst()
   m_height = Height();
   m_centerx = m_width / 2.0f + X();
   m_centery = m_height / 2.0f + Y();
-  SetDefaults();
 }
 
 bool CVisualizationStarBurst::Start(int channels,
@@ -330,18 +329,6 @@ bool CVisualizationStarBurst::InitGeometry()
 
 void CVisualizationStarBurst::CreateArrays()
 {
-  for (int i = 0; i < m_iBars * 2; i++)
-  {
-    m_pScreen[i] = 0.0f;
-    m_pPeak[i] = 0.0f;
-    m_pFreq[i] = 0.0f;
-
-    m_positions[i * 2] = glm::vec4(0.0f);
-    m_positions[i * 2 + 1] = glm::vec4(0.0f);
-    m_colors[i * 2] = glm::vec4(0.0f);
-    m_colors[i * 2 + 1] = glm::vec4(0.0f);
-  }
-
   // and the weight array
   if (m_Weight == WEIGHT_NONE)
     return;
@@ -359,41 +346,6 @@ void CVisualizationStarBurst::CreateArrays()
     else // m_Weight == WEIGHT_C
       m_pWeight[i] = (float)sqr(POLE2 * f2 / (f2 + POLE1) / (f2 + POLE2));
   }
-}
-
-void CVisualizationStarBurst::SetDefaults()
-{
-  m_iBars = 40;
-  m_bLogScale = false;
-  m_fPeakDecaySpeed = 0.5f;
-  m_fRiseSpeed = 0.5f;
-  m_fFallSpeed = 0.5f;
-  m_Weight = WEIGHT_NONE;
-  m_bMixChannels = true;
-  m_fMinFreq = 80;
-  m_fMaxFreq = 16000;
-  m_fMinLevel = 0;
-  m_fMaxLevel = 0.2;
-  m_bShowPeaks = true;
-  m_bAverageLevels = false;
-  spinrate = 1.0 / 3.0;
-  startradius = 0.0f;
-  minbar = 200.0f;
-  //inital color
-  m_r2 = 1.0f;
-  m_g2 = 0.785f;
-  m_b2 = 0.0f;
-  m_a2 = 1.0f;
-  //finalColor
-  m_r1 = 0.64f;
-  m_g1 = 0.75f;
-  m_b1 = 1.0f;
-  m_a1 = 1.0f;
-  // color Diff
-  m_r2 -= m_r1;
-  m_g2 -= m_g1;
-  m_b2 -= m_b1;
-  m_a2 -= m_a1;
 }
 
 ADDONCREATOR(CVisualizationStarBurst)

@@ -72,67 +72,67 @@ public:
 private:
   bool InitGeometry();
   void CreateArrays();
-  void SetDefaults();
 
   std::unique_ptr<MRFFT> m_transform;
   std::unique_ptr<float[]> m_freqData;
-  size_t m_freqDataLength = 0;
-  size_t m_prevFreqDataLength = 0;
+  size_t m_freqDataLength{0};
+  size_t m_prevFreqDataLength{0};
 
   glm::mat4 m_modelProjMat;
 
 #ifdef HAS_GL
   GLuint m_vertexVBO[2] = {0};
 #endif
-  GLint m_uModelProjMatrix = -1;
-  GLint m_aPosition = -1;
-  GLint m_aColor = -1;
+  GLint m_uModelProjMatrix{-1};
+  GLint m_aPosition{-1};
+  GLint m_aColor{-1};
 
   bool m_startOK = false;
 
-  float m_pScreen[MAX_BARS * 2]; // Current levels on the screen
-  float m_pPeak[MAX_BARS * 2]; // Peak levels
-  float m_pWeight[FREQ_DATA_SIZE / 2 + 1]; // A/B/C weighted levels for speed
-  float m_pFreq[MAX_BARS * 2]; // Frequency data
+  float m_pScreen[MAX_BARS * 2] = {0.0f}; // Current levels on the screen
+  float m_pPeak[MAX_BARS * 2] = {0.0f}; // Peak levels
+  float m_pWeight[FREQ_DATA_SIZE / 2 + 1] = {0.0f}; // A/B/C weighted levels for speed
+  float m_pFreq[MAX_BARS * 2] = {0.0f}; // Frequency data
 
   int m_iSampleRate;
   int m_width;
   int m_height;
   float m_centerx;
   float m_centery;
-  float m_fRotation = 0.0f;
-  float m_angle = 0.0f;
 
-  float startradius; //radius at which to start each bar
-  float minbar; //minimum length of a bar
-  float spinrate; // rate at witch to spin vis
+  float m_fRotation{0.0f};
+  float m_angle{0.0f};
+  float startradius{0.0f}; //radius at which to start each bar
+  float minbar{200.0f}; //minimum length of a bar
+  float spinrate{1.0f / 3.0f}; // rate at witch to spin vis
 
-  float m_r1; //floats used for bar colors;
-  float m_g1;
-  float m_b1;
-  float m_a1;
-  float m_r2;
-  float m_g2;
-  float m_b2;
-  float m_a2;
+  float m_r1{0.64f}; //floats used for bar colors;
+  float m_g1{0.75f};
+  float m_b1{1.0f};
+  float m_a1{1.0f};
+  float m_r2{1.0f - m_r1};
+  float m_g2{0.785f - m_g1};
+  float m_b2{0.0f - 1.0f};
+  float m_a2{1.0f - m_a1};
 
-  int m_iBars; // number of bars to draw
-  bool m_bLogScale; // true if our frequency is on a log scale
-  bool m_bShowPeaks; // show peaks?
-  bool m_bAverageLevels; // show average levels?
-  float m_fPeakDecaySpeed; // speed of decay (in dB/frame)
-  float m_fRiseSpeed; // division of rise to actually go up
-  float m_fFallSpeed; // division of fall to actually go up
-  float m_fMinFreq; // wanted frequency range
-  float m_fMaxFreq;
-  float m_fMinLevel; // wanted level range
-  float m_fMaxLevel;
-  WEIGHT m_Weight; // weighting type to be applied
-  bool m_bMixChannels; // Mix channels, or stereo?
-  bool m_bSeperateBars;
+  int m_iBars{40}; // number of bars to draw
+  bool m_bLogScale{false}; // true if our frequency is on a log scale
+  bool m_bShowPeaks{false}; // show peaks?
+  bool m_bAverageLevels{false}; // show average levels?
+  float m_fPeakDecaySpeed{0.5f}; // speed of decay (in dB/frame)
+  float m_fRiseSpeed{0.5f}; // division of rise to actually go up
+  float m_fFallSpeed{0.5f}; // division of fall to actually go up
+  float m_fMinFreq{80}; // wanted frequency range
+  float m_fMaxFreq{16000};
+  float m_fMinLevel{0}; // wanted level range
+  float m_fMaxLevel{0.2f};
+  WEIGHT m_Weight{WEIGHT_NONE}; // weighting type to be applied
+  bool m_bMixChannels{true}; // Mix channels, or stereo?
 
-  glm::vec4 m_positions[MAX_BARS * 4]; // The transformed position for the vertex
-  glm::vec4 m_colors[MAX_BARS * 4]; // The vertex color
+   // The transformed position for the vertex
+  glm::vec4 m_positions[MAX_BARS * 4] = {glm::vec4(0.0f)};
+  // The vertex color
+  glm::vec4 m_colors[MAX_BARS * 4] = {glm::vec4(0.0f)};
 
-  double m_oldTime;
+  double m_oldTime{0.0};
 };
