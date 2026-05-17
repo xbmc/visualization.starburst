@@ -17,7 +17,6 @@ CVisualizationStarBurst::CVisualizationStarBurst()
   m_centerx = m_width/2.0f + X();
   m_centery = m_height/2.0f + Y();
   SetDefaults();
-  CreateArrays();
 }
 
 bool CVisualizationStarBurst::Start(int channels, int samplesPerSec, int bitsPerSample, const std::string& songName)
