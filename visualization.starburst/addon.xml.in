@@ -21,6 +21,7 @@
     </assets>
     <summary lang="af_ZA">StarBurst visualisering</summary>
     <summary lang="bs_BA">Vizualizator StarBurst-a</summary>
+    <summary lang="cs_CZ">Vizualizace StarBurst</summary>
     <summary lang="da_DK">StarBurst visualisering</summary>
     <summary lang="de_DE">StarBurst-Visualisierung</summary>
     <summary lang="en_GB">StarBurst visualizer</summary>
@@ -38,6 +39,7 @@
     <summary lang="zh_CN">星暴可视化效果</summary>
     <description lang="af_ZA">Frekwensie gee sterre bars.</description>
     <description lang="bs_BA">Zvijezde koje daju frekvenciju pucaju.</description>
+    <description lang="cs_CZ">Vizualizace, ve které frekvence vytvářejí záblesky hvězd.</description>
     <description lang="da_DK">Frekvens der får stjerner til at briste.</description>
     <description lang="de_DE">Starburst-Frequenz.</description>
     <description lang="en_GB">Frequency giving stars burst.</description>
